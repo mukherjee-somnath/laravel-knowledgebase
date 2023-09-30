@@ -16,3 +16,26 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('demo/{name}/{id?}', function ($name, $id=null) {
+     echo "hello world";
+
+    // echo $name;
+    // echo $id;
+    $data = compact('name', 'id');
+    return view("demo", $data);
+});
+
+// Post or get =  any method it can take
+
+Route::any('test', function () {
+    echo "test";
+});
+
+Route::get('home/{name?}', function ($name=null) {
+    $data_html = '<h2>sample data</h2>';
+    $data = compact('name','data_html');
+
+    return view('home')->with($data);
+    // return view('home', $data);
+});
