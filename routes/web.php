@@ -7,6 +7,7 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\RegistrationController;
 use App\Models\Customer;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Models\Customer;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('demo/{name}/{id?}', function ($name, $id=null) {
@@ -62,6 +63,31 @@ Route::get('customer', function () {
 });
 
 Route::get('customer-signup', [CustomerController::class, 'index']);
-Route::post('customer-signup', [CustomerController::class, 'signup']);
+Route::post('customer-signup', [CustomerController::class, 'signup'])->name('customer.create');
 
-Route::get('customer/view', [CustomerController::class, 'view']);
+Route::get('customer/view', [CustomerController::class, 'view'])->name('customer.view');
+Route::get('customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
+Route::get('customer/force-delete/{id}', [CustomerController::class, 'force_delete'])->name('customer.force-delete');
+Route::get('customer/restore/{id}', [CustomerController::class, 'restore'])->name('customer.restore');
+Route::get('customer/trash', [CustomerController::class, 'trash'])->name('customer.trash');
+
+Route::get('customer/edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
+// Route::post('customer/update', [CustomerController::class, 'update'])->name('customer.update');
+Route::post('customer/update', [CustomerController::class, 'update'])->name('customer.update');
+
+Route::get('get-all-sessions', function(){
+    $session = session()->all();
+    p($session);
+    return redirect('/');
+});
+
+Route::get('set-session', function(Request $request){
+    $request->session()->put('name', 'somnath');
+    $request->session()->flash('status', 'Success');
+    return redirect('get-all-sessions');
+})->name('set.session');
+
+Route::get('destroy-session', function(){
+    session()->forget(['name']);
+    return redirect('get-all-sessions');
+})->name('destroy.session');

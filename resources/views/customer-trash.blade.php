@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Customer Details</title>
+    <title>Deleted Customers</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -61,8 +61,8 @@
                         <td>{{$customer->points}}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{route('customer.edit', $customer->customer_id)}}"><button class="btn btn-success btn-sm mr-2">Edit</button></a>
-                                <a href="{{route('customer.delete', $customer->customer_id)}}"><button class="btn btn-danger btn-sm">Move to Trash</button></a>
+                                <a href="{{route('customer.restore', $customer->customer_id)}}"><button class="btn btn-success btn-sm mr-2">Restore</button></a>
+                                <a href="{{route('customer.force-delete', $customer->customer_id)}}"><button class="btn btn-danger btn-sm">Delete</button></a>
                             </div>
                         </td>
                     </tr>
