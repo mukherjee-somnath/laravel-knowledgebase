@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Index page</title>
+    <title>File Upload</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,13 +10,26 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-      @include('header')
-
-        <div class="container-fluid">
-            <div class="display-4 pt-5 pl-5">
-                @lang('lang.index')
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 pt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{url('file-upload')}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="file_upload">File Upload</label>
+                                <input type="file" name="file" id="" class="form-control">
+                                <button class="btn btn-primary mt-2" type="submit">Upload</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+            <div class="col-4"></div>
         </div>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

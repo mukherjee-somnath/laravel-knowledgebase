@@ -12,6 +12,20 @@
   <body>
     @include('header')
       <div class="container pt-5">
+        <div class="row mb-4">
+            <div class="col-6 mx-md-auto">
+                <form action="" method="get">
+                    <div class="form-group">
+                      <input type="search" name="search" id="" class="form-control" placeholder="Search by name or email" aria-describedby="helpId">
+                    </div>
+                    <button class="btn btn-primary form-control"  role="button">Search</button>
+
+                </form>
+                <a href="{{url('customer/view')}}">
+                    <button class="btn btn-primary form-group"   >Clear</button>
+                </a>
+            </div>
+        </div>
         <table class="table">
             <thead>
                 <tr style="font-size: 12px;">
@@ -69,6 +83,11 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="row pt-3">
+            <div class="col-6 offset-3">
+                {{$customers->links()}}
+            </div>
+        </div>
       </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

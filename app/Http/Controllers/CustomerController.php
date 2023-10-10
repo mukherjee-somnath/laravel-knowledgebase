@@ -40,11 +40,20 @@ class CustomerController extends Controller
         return redirect('customer/view');
     }
 
-    public function view(){
-        $customers = Customer::all();
+    public function view(Request $request){
+        $search=$request['search'] ?? "";
+        if($search != ""){
+            //where
+            $customers=Customer::where('name', 'LIKE', "%$search%")->orWhere('email', 'LIKE', "%$search%")->get();
+        }else{
+            $customers = Customer::paginate(15);
+        }
+
         $data = compact('customers');
         return view('customer-view', $data);
     }
+
+
 
     public function delete($id){
         // dd($id);
@@ -120,6 +129,22 @@ class CustomerController extends Controller
         $customers = Customer::onlyTrashed()->get();
         $data = compact('customers');
         return view('customer-trash', $data);
+    }
+
+    public function laravel_signup(){
+        return view('laravel-form');
+    }
+
+    public function file_view(){
+        return view('file-upload');
+    }
+    public function file_upload(Request $request){
+        // p($request->all());
+        $fileName="laravel-kb-".time().".".$request->file('file')->getClientOriginalExtension(); //custom file name converter
+        // echo $fileName;
+        // die;
+        // echo $request->file('file')->store('uploads'); //laravel dynamic file name // should be used to make system fast
+        echo $request->file('file')->storeAs('public/uploads', $fileName);
     }
 
 }
